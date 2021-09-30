@@ -100,4 +100,28 @@ public class Prestamo extends AggregateEvent<PrestamoId> {
         Objects.requireNonNull(valorBaseMulta);
         appendChange(new ValorBaseMultaCambiado(valorBaseMulta)).apply();
     }
+
+    public LibroId libroId() {
+        return libroId;
+    }
+
+    public FechaPrestamo fechaPrestamo() {
+        return fechaPrestamo;
+    }
+
+    public FechaDevolucion fechaDevolucion() {
+        return fechaDevolucion;
+    }
+
+    public FichaBiblioteca fichaBiblioteca() {
+        return fichaBiblioteca;
+    }
+
+    public Lector lector() {
+        return lector;
+    }
+
+    public Multa multa() {
+        return multa;
+    }
 }
