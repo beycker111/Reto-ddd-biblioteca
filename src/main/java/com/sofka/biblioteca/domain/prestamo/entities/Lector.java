@@ -33,15 +33,15 @@ public class Lector extends Entity<LectorId> {
         this.email = email;
     }
 
-    public Nombre getNombre() {
+    public Nombre nombre() {
         return nombre;
     }
 
-    public Telefono getTelefono() {
+    public Telefono telefono() {
         return telefono;
     }
 
-    public Email getEmail() {
+    public Email email() {
         return email;
     }
 }

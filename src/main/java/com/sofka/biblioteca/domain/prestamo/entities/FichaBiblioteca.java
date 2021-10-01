@@ -34,15 +34,15 @@ public class FichaBiblioteca extends Entity<FichaBibliotecaId> {
         this.observacion = observacion;
     }
 
-    public NombreBiblioteca getNombreBiblioteca() {
+    public NombreBiblioteca nombreBiblioteca() {
         return nombreBiblioteca;
     }
 
-    public NombreBibliotecario getNombreBibliotecario() {
+    public NombreBibliotecario nombreBibliotecario() {
         return nombreBibliotecario;
     }
 
-    public Observacion getObservacion() {
+    public Observacion observacion() {
         return observacion;
     }
 }

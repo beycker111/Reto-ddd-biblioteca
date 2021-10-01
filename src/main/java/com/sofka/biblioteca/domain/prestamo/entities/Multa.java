@@ -30,11 +30,11 @@ public class Multa extends Entity<MultaId> {
         this.valorBaseMulta = valorBaseMulta;
     }
 
-    public DiasRetrasado getDiasRetrasado() {
+    public DiasRetrasado diasRetrasado() {
         return diasRetrasado;
     }
 
-    public ValorBaseMulta getValorBaseMulta() {
+    public ValorBaseMulta valorBaseMulta() {
         return valorBaseMulta;
     }
 }

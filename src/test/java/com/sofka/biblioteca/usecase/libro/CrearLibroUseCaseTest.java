@@ -1,4 +1,4 @@
-package com.sofka.biblioteca.usecase;
+package com.sofka.biblioteca.usecase.libro;
 
 import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.support.RequestCommand;
@@ -8,10 +8,9 @@ import com.sofka.biblioteca.domain.libro.values.Editorial;
 import com.sofka.biblioteca.domain.libro.values.LibroId;
 import com.sofka.biblioteca.domain.libro.values.Resumen;
 import com.sofka.biblioteca.domain.shared.values.Nombre;
+import com.sofka.biblioteca.usecase.libro.CrearLibroUseCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CrearLibroUseCaseTest {
 

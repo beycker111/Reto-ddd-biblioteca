@@ -1,4 +1,4 @@
-package com.sofka.biblioteca.usecase;
+package com.sofka.biblioteca.usecase.libro;
 
 import co.com.sofka.business.generic.UseCase;
 import co.com.sofka.business.support.RequestCommand;

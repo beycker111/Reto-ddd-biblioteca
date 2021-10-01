@@ -1,16 +1,15 @@
-package com.sofka.biblioteca.usecase;
+package com.sofka.biblioteca.usecase.libro;
 
 import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
-import com.sofka.biblioteca.domain.libro.commands.CambiarEditorial;
-import com.sofka.biblioteca.domain.libro.events.EditorialCambiada;
+import com.sofka.biblioteca.domain.libro.commands.AsignarAutor;
+import com.sofka.biblioteca.domain.libro.events.AutorAsignado;
 import com.sofka.biblioteca.domain.libro.events.LibroCreado;
-import com.sofka.biblioteca.domain.libro.values.Editorial;
-import com.sofka.biblioteca.domain.libro.values.LibroId;
-import com.sofka.biblioteca.domain.libro.values.Resumen;
+import com.sofka.biblioteca.domain.libro.values.*;
 import com.sofka.biblioteca.domain.shared.values.Nombre;
+import com.sofka.biblioteca.usecase.libro.AsignarAutorUseCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,24 +19,25 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
-class CambiarEditorialUseCaseTest {
+class AsignarAutorUseCaseTest {
 
     @Mock
     private DomainEventRepository repository;
 
     @Test
-    void cambiarEditorialTest(){
-        var aggregateId = "0007";
+    void asignarAutorTest(){
 
-        var command = new CambiarEditorial(
+        //arrange
+        var aggregateId = "0002";
+        var command = new AsignarAutor(
                 LibroId.of(aggregateId),
-                new Editorial("Castilla")
+                AutorId.of("0001"),
+                new Nombre("Beycker"),
+                new Especialidad("Sistemas")
         );
 
-        var useCase = new CambiarEditorialUseCase();
+        var useCase = new AsignarAutorUseCase();
         Mockito.when(repository.getEventsBy(aggregateId)).thenReturn(evenStored());
         useCase.addRepository(repository);
 
@@ -49,10 +49,12 @@ class CambiarEditorialUseCaseTest {
                 .orElseThrow()
                 .getDomainEvents();
 
-        var event = (EditorialCambiada)events.get(0);
+        var event = (AutorAsignado)events.get(0);
 
         //assert
-        Assertions.assertEquals("Castilla", event.getEditorial().value());
+        Assertions.assertEquals("Beycker", event.getNombre().value());
+
+        Assertions.assertEquals(1, events.size());
     }
 
     private List<DomainEvent> evenStored() {
@@ -64,4 +66,5 @@ class CambiarEditorialUseCaseTest {
 
         return List.of(event);
     }
+
 }

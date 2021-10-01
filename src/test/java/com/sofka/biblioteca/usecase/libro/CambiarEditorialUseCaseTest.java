@@ -1,14 +1,17 @@
-package com.sofka.biblioteca.usecase;
+package com.sofka.biblioteca.usecase.libro;
 
 import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
-import com.sofka.biblioteca.domain.libro.commands.AsignarHistorial;
-import com.sofka.biblioteca.domain.libro.events.HistorialAsignado;
+import com.sofka.biblioteca.domain.libro.commands.CambiarEditorial;
+import com.sofka.biblioteca.domain.libro.events.EditorialCambiada;
 import com.sofka.biblioteca.domain.libro.events.LibroCreado;
-import com.sofka.biblioteca.domain.libro.values.*;
+import com.sofka.biblioteca.domain.libro.values.Editorial;
+import com.sofka.biblioteca.domain.libro.values.LibroId;
+import com.sofka.biblioteca.domain.libro.values.Resumen;
 import com.sofka.biblioteca.domain.shared.values.Nombre;
+import com.sofka.biblioteca.usecase.libro.CambiarEditorialUseCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,27 +21,22 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
-class AsignarHistorialUseCaseTest {
+class CambiarEditorialUseCaseTest {
 
     @Mock
     private DomainEventRepository repository;
 
     @Test
-    void asignarHistorialTest(){
+    void cambiarEditorialTest(){
+        var aggregateId = "0007";
 
-        //arrange
-        var aggregateId = "0003";
-        var historialId = "0003";
-        var command = new AsignarHistorial(
+        var command = new CambiarEditorial(
                 LibroId.of(aggregateId),
-                HistorialId.of(historialId),
-                new VecesPrestado(4)
+                new Editorial("Castilla")
         );
 
-        var useCase = new AsignarHistorialUseCase();
+        var useCase = new CambiarEditorialUseCase();
         Mockito.when(repository.getEventsBy(aggregateId)).thenReturn(evenStored());
         useCase.addRepository(repository);
 
@@ -50,11 +48,10 @@ class AsignarHistorialUseCaseTest {
                 .orElseThrow()
                 .getDomainEvents();
 
-        var event = (HistorialAsignado)events.get(0);
+        var event = (EditorialCambiada)events.get(0);
+
         //assert
-        Assertions.assertEquals(4, event.getVecesPrestado().value());
-
-
+        Assertions.assertEquals("Castilla", event.getEditorial().value());
     }
 
     private List<DomainEvent> evenStored() {
@@ -66,5 +63,4 @@ class AsignarHistorialUseCaseTest {
 
         return List.of(event);
     }
-
 }

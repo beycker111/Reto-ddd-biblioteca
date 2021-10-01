@@ -1,16 +1,15 @@
-package com.sofka.biblioteca.usecase;
+package com.sofka.biblioteca.usecase.libro;
 
 import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
-import com.sofka.biblioteca.domain.libro.commands.CambiarResumen;
+import com.sofka.biblioteca.domain.libro.commands.AsignarGenero;
+import com.sofka.biblioteca.domain.libro.events.GeneroAsignado;
 import com.sofka.biblioteca.domain.libro.events.LibroCreado;
-import com.sofka.biblioteca.domain.libro.events.ResumenCambiado;
-import com.sofka.biblioteca.domain.libro.values.Editorial;
-import com.sofka.biblioteca.domain.libro.values.LibroId;
-import com.sofka.biblioteca.domain.libro.values.Resumen;
+import com.sofka.biblioteca.domain.libro.values.*;
 import com.sofka.biblioteca.domain.shared.values.Nombre;
+import com.sofka.biblioteca.usecase.libro.AsignarGeneroUseCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,25 +19,25 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
-class CambiarResumenUseCaseTest {
+class AsignarGeneroUseCaseTest {
 
     @Mock
     private DomainEventRepository repository;
 
     @Test
-    void cambiarResumenTest(){
+    void asignarGeneroTest(){
 
-        var aggregateId = "0008";
-
-        var command = new CambiarResumen(
+        //arrange
+        var aggregateId = "0001";
+        var command = new AsignarGenero(
                 LibroId.of(aggregateId),
-                new Resumen("Habla sobre muchas cosas lindas")
+                GeneroId.of("0001"),
+                new Nombre("Terror"),
+                new PublicoObjetivo("Mayores de 18")
         );
 
-        var useCase = new CambiarResumenUseCase();
+        var useCase = new AsignarGeneroUseCase();
         Mockito.when(repository.getEventsBy(aggregateId)).thenReturn(evenStored());
         useCase.addRepository(repository);
 
@@ -50,10 +49,11 @@ class CambiarResumenUseCaseTest {
                 .orElseThrow()
                 .getDomainEvents();
 
-        var event = (ResumenCambiado)events.get(0);
-
         //assert
-        Assertions.assertEquals("Habla sobre muchas cosas lindas", event.getResumen().value());
+        var generoAsignado = (GeneroAsignado)events.get(0);
+        Assertions.assertEquals("Terror", generoAsignado.getNombre().value());
+
+        Assertions.assertEquals(1, events.size());
     }
 
     private List<DomainEvent> evenStored() {
@@ -65,4 +65,5 @@ class CambiarResumenUseCaseTest {
 
         return List.of(event);
     }
+
 }
