@@ -73,16 +73,19 @@ public class Libro extends AggregateEvent<LibroId> {
     }
 
     public void cambiarVecesPrestadoHistorial(HistorialId historialId, VecesPrestado vecesPrestado){
+        Objects.requireNonNull(historialId);
         Objects.requireNonNull(vecesPrestado);
         appendChange(new VecesPrestadoCambiado(historialId, vecesPrestado)).apply();
     }
 
     public void incrementarVecesPrestadoHistorial(HistorialId historialId, VecesPrestado vecesPrestado){
+        Objects.requireNonNull(historialId);
         Objects.requireNonNull(vecesPrestado);
         appendChange(new VecesPrestadoIncrementado(historialId, vecesPrestado)).apply();
     }
 
     public void cambiarEspecialidadAutor(AutorId autorId, Especialidad especialidad){
+        Objects.requireNonNull(autorId);
         Objects.requireNonNull(especialidad);
         appendChange(new EspecialidadAutorCambiada(autorId, especialidad)).apply();
     }
