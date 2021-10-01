@@ -86,19 +86,22 @@ public class Prestamo extends AggregateEvent<PrestamoId> {
         appendChange(new FechaDevolucionCambiada(fechaDevolucion)).apply();
     }
 
-    public void cambiarNombreBiblioteca(NombreBiblioteca nombreBiblioteca){
+    public void cambiarNombreBiblioteca(FichaBibliotecaId fichaBibliotecaId, NombreBiblioteca nombreBiblioteca){
+        Objects.requireNonNull(fichaBibliotecaId);
         Objects.requireNonNull(nombreBiblioteca);
-        appendChange(new NombreBibliotecaCambiada(nombreBiblioteca)).apply();
+        appendChange(new NombreBibliotecaCambiada(fichaBibliotecaId, nombreBiblioteca)).apply();
     }
 
-    public void cambiarNombreBibliotecario(NombreBibliotecario nombreBibliotecario){
+    public void cambiarNombreBibliotecario(FichaBibliotecaId fichaBibliotecaId, NombreBibliotecario nombreBibliotecario){
+        Objects.requireNonNull(fichaBibliotecaId);
         Objects.requireNonNull(nombreBibliotecario);
-        appendChange(new NombreBibliotecarioCambiado(nombreBibliotecario)).apply();
+        appendChange(new NombreBibliotecarioCambiado(fichaBibliotecaId, nombreBibliotecario)).apply();
     }
 
-    public void cambiarValorBaseMulta(ValorBaseMulta valorBaseMulta){
+    public void cambiarValorBaseMulta(MultaId multaId, ValorBaseMulta valorBaseMulta){
+        Objects.requireNonNull(multaId);
         Objects.requireNonNull(valorBaseMulta);
-        appendChange(new ValorBaseMultaCambiado(valorBaseMulta)).apply();
+        appendChange(new ValorBaseMultaCambiado(multaId, valorBaseMulta)).apply();
     }
 
     public LibroId libroId() {

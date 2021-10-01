@@ -50,8 +50,8 @@ public class LibroChange extends EventChange {
             libro.resumen = event.getResumen();
         });
 
-        apply((VecesPrestadoAsignado event) -> {
-            libro.historial.asignarVecesPrestado(event.getVecesPrestado());
+        apply((VecesPrestadoCambiado event) -> {
+            libro.historial.cambiarVecesPrestado(event.getVecesPrestado());
         });
 
         apply((VecesPrestadoIncrementado event) -> {

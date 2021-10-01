@@ -72,19 +72,19 @@ public class Libro extends AggregateEvent<LibroId> {
         appendChange(new ResumenCambiado(resumen)).apply();
     }
 
-    public void asignarVecesPrestadoHistorial(VecesPrestado vecesPrestado){
+    public void cambiarVecesPrestadoHistorial(HistorialId historialId, VecesPrestado vecesPrestado){
         Objects.requireNonNull(vecesPrestado);
-        appendChange(new VecesPrestadoAsignado(vecesPrestado)).apply();
+        appendChange(new VecesPrestadoCambiado(historialId, vecesPrestado)).apply();
     }
 
-    public void incrementarVecesPrestadoHistorial(VecesPrestado vecesPrestado){
+    public void incrementarVecesPrestadoHistorial(HistorialId historialId, VecesPrestado vecesPrestado){
         Objects.requireNonNull(vecesPrestado);
-        appendChange(new VecesPrestadoIncrementado(vecesPrestado)).apply();
+        appendChange(new VecesPrestadoIncrementado(historialId, vecesPrestado)).apply();
     }
 
-    public void cambiarEspecialidadAutor(Especialidad especialidad){
+    public void cambiarEspecialidadAutor(AutorId autorId, Especialidad especialidad){
         Objects.requireNonNull(especialidad);
-        appendChange(new EspecialidadAutorCambiada(especialidad)).apply();
+        appendChange(new EspecialidadAutorCambiada(autorId, especialidad)).apply();
     }
 
     public Nombre nombre() {

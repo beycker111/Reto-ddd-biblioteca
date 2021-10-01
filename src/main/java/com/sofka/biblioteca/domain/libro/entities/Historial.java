@@ -13,7 +13,7 @@ public class Historial extends Entity<HistorialId> {
         this.vecesPrestado = vecesPrestado;
     }
 
-    public void asignarVecesPrestado(VecesPrestado vecesPrestado){
+    public void cambiarVecesPrestado(VecesPrestado vecesPrestado){
         this.vecesPrestado = vecesPrestado;
     }
 
