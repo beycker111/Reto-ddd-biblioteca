@@ -127,4 +127,8 @@ public class Prestamo extends AggregateEvent<PrestamoId> {
     public Multa multa() {
         return multa;
     }
+
+    public void enviarAlerta(String mensaje) {
+        appendChange(new MensajeEnviado(mensaje)).apply();
+    }
 }
