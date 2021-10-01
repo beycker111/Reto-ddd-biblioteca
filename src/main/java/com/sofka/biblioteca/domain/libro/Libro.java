@@ -113,4 +113,8 @@ public class Libro extends AggregateEvent<LibroId> {
     public Autor autor() {
         return autor;
     }
+
+    public void enviarAlerta(String mensaje) {
+        appendChange(new MensajeEnviado(mensaje)).apply();
+    }
 }

@@ -1,11 +1,11 @@
-package com.sofka.biblioteca.usecase.prestamo;
+package com.sofka.biblioteca.usecase.service;
 
 import co.com.sofka.business.generic.BusinessException;
 import co.com.sofka.business.generic.UseCase;
 import co.com.sofka.business.support.ResponseEvents;
 import co.com.sofka.business.support.TriggeredEvent;
 import com.sofka.biblioteca.domain.prestamo.events.MensajeEnviado;
-import com.sofka.biblioteca.usecase.prestamo.service.EnvioDeCorreoService;
+import com.sofka.biblioteca.usecase.service.EnvioDeCorreoService;
 
 public class EnviarCorreoUseCase extends UseCase<TriggeredEvent<MensajeEnviado>, ResponseEvents> {
 
@@ -13,7 +13,7 @@ public class EnviarCorreoUseCase extends UseCase<TriggeredEvent<MensajeEnviado>,
     public void executeUseCase(TriggeredEvent<MensajeEnviado> mensajeEnviadoTriggeredEvent) {
         var event = mensajeEnviadoTriggeredEvent.getDomainEvent();
         var service = getService(EnvioDeCorreoService.class).orElseThrow();
-        var isOk = service.enviarCorreo("adminbey@gmail.com", "Notificacion prestamo", event.getMensaje());
+        var isOk = service.enviarCorreo("adminbey@gmail.com", "Notificacion", event.getMensaje());
 
         if(!isOk){
             emit().onError(new BusinessException(
